@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 import java.util.Date;
 
-// Spring Bean的标识.
 @Service
 public class StockService {
 
