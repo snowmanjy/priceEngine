@@ -1,1 +1,1 @@
-web: java -Dspring.server.port=$PORT -jar target/stockdata-1.0-SNAPSHOT.jar
+web: java -Dspring.server.port=8080 -jar target/stockdata-1.0-SNAPSHOT.jar
