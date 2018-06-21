@@ -74,7 +74,6 @@ public class StockService {
     protected int[] calculateMaxDiffIndexs(double[] doubleArray) {
 	    // indexArrays[0]: index of lowest value
         // indexArrays[1]: index of highest value
-
 	    int[] indexArrays = new int[2];
         double lowest, highest;
         lowest = highest = doubleArray[0];
