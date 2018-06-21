@@ -1,0 +1,1 @@
+web: java -jar target/stockdata-1.0-SNAPSHOT.jar
