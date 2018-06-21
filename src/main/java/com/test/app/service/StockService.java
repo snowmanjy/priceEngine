@@ -66,6 +66,7 @@ public class StockService {
         response.setBuyDate(dailyDataArray[tradingDays[0]].getTradingDay());
         response.setSellDate(dailyDataArray[tradingDays[1]].getTradingDay());
         response.setMaxProfit(dailyDataArray[tradingDays[1]].getHigh() - dailyDataArray[tradingDays[0]].getHigh());
+
         return response;
     }
 
