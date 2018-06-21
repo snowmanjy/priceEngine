@@ -1,1 +1,0 @@
-web: java -Dspring.server.port=8080 -jar target/stockdata-1.0-SNAPSHOT.jar
