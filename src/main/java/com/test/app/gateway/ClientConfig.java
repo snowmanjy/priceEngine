@@ -10,4 +10,5 @@ public class ClientConfig {
     public StockDataGateway stockDataGateway() {
         return new StockDataGatewayImpl();
     }
+
 }

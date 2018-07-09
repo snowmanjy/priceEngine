@@ -5,6 +5,8 @@ import com.test.app.dao.StockDao;
 import com.test.app.dto.Response;
 import com.test.app.dto.StockDailyData;
 import com.test.app.dto.StockData;
+import com.test.app.kafka.Producer;
+import com.test.app.kafka.SampleMessage;
 import com.test.app.web.StockNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,6 +27,9 @@ public class StockService {
 
 	@Autowired
 	private StockDao stockDao;
+
+    @Autowired
+    private Producer producer;
 
 	public Response getMaxProfitDates(String stock) throws StockNotFoundException {
 
@@ -48,7 +53,10 @@ public class StockService {
 
         }
 
-		return calculateMaxProfitDates(data);
+        //TODO data change
+        producer.send(new SampleMessage(1, "A simple test message"));
+
+        return calculateMaxProfitDates(data);
 	}
 
 	private Response calculateMaxProfitDates(StockData data) {

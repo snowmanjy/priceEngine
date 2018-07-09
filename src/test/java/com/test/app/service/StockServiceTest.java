@@ -5,6 +5,7 @@ import com.test.app.dto.Response;
 import com.test.app.dto.Status;
 import com.test.app.dto.StockDailyData;
 import com.test.app.dto.StockData;
+import com.test.app.kafka.Producer;
 import com.test.app.web.StockNotFoundException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -23,6 +24,9 @@ public class StockServiceTest {
 
     @Mock
     private StockDao stockDao;
+
+    @Mock
+    private Producer producer;
 
     @InjectMocks
     private StockService stockService = new StockService();
