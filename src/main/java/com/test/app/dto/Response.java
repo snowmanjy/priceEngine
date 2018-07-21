@@ -1,5 +1,8 @@
 package com.test.app.dto;
 
+import org.springframework.boot.jackson.JsonComponent;
+
+@JsonComponent
 public class Response {
     private Status status;
     private String buyDate;
