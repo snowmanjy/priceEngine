@@ -16,20 +16,25 @@
 
 package com.test.app.kafka;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-@Component
-class Consumer {
 
-	@KafkaListener(topics = "${cloudkarafka.topic}")
+@Component
+class EventConsumer {
+	private static Logger logger = LoggerFactory.getLogger(EventConsumer.class);
+
+	@KafkaListener(topics = "${cloudkarafka.topic.event}")
 	public void processMessage(String message,
 							   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
 							   @Header(KafkaHeaders.RECEIVED_TOPIC) List<String> topics,
 							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
+        logger.info("EventConsumer triggered");
 		System.out.printf("%s-%d[%d] \"%s\"\n", topics.get(0), partitions.get(0), offsets.get(0), message);
 	}
 }

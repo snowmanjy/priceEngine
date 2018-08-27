@@ -1,11 +1,11 @@
-IDE:
-I'm using IntelliJ, you should be able to import the project easily.
 
 Run:
-This is a maven project, to run it, change directory to project root folder and run command: mvn package && java -jar target/stockdata-1.0-SNAPSHOT.jar
+This is a maven project, to run it, change directory to project root folder and run command:
+mvn package && java -jar target/priceEngine-1.0-SNAPSHOT.jar
 
 Check output:
-type in browser: http://localhost:8080/getMaxProfitDates?stock=IBM, the output should like this:
+type in browser:
+http://localhost:8080/getMaxProfitDates?stock=IBM, the output should like this:
 {"status":{"code":200,"message":"Success."},"buyDate":"2017-08-21","sellDate":"2017-10-23","maxProfit":21.871399999999994}
 
 Data source:

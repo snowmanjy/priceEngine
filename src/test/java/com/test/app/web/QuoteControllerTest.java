@@ -15,26 +15,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-public class StockControllerTest {
+public class QuoteControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Test
     public void getHello() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/").accept(MediaType.APPLICATION_JSON))
+        mvc.perform(MockMvcRequestBuilders.get("/quotes/hello").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk());
     }
 
-    @Test
-    public void getStockDates() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/getMaxProfitDates?stock=MSFT").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void getStockDatesByEmptyInput() throws Exception {
-        mvc.perform(MockMvcRequestBuilders.get("/getMaxProfitDates?stock=").accept(MediaType.APPLICATION_JSON))
-                .andExpect(status().is4xxClientError());
-    }
 }
