@@ -23,14 +23,3 @@ post
 Check quote:
 type in browser:
 http://localhost:8080/quotes/testQuote
-
-Data source:
-You can check the stock data from 3rd-party website by this url:
-https://marketdata.websol.barchart.com/getHistory.json?apikey=1ab9d5c67b2b35fc622bb63e686eaa27&symbol=IBM&type=daily&startDate=20170501
-
-data source url and data of how many days are configurable in application.properties file
-
-Tests:
-StockServiceTest.testCalculateMaxDiffIndexs is the main part to test the algorithm with different price input
-StockControllerTest is testing web service(http) layer.
-StockServiceTest mainly testing service layer and the algorithm.
