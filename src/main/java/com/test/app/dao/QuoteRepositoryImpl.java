@@ -30,7 +30,7 @@ public class QuoteRepositoryImpl implements BaseRepository<Quote> {
     }
 
     public Quote find(String symbol){
-        return listOperations.leftPop(symbol);
+        return listOperations.index(symbol, 0);
     }
 
     public boolean hasKey(String symbol) {
