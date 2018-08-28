@@ -8,16 +8,21 @@ use postman
 http://localhost:8080/quotes/
 post
 {
-  "name" : "testQuote",
-  "discount" : 0.00,
-  "quoteLines" : [{
-    "product" : {
-      "productName" : "testProd1",
-      "price" : 20.00
-    },
-    "discount" : 0.00,
-    "quantity" : 3
-  }]
+  "name": "testQuote",
+  "quoteLines": [
+    {
+      "lineNumber": 0,
+      "product": {
+        "productName": "testProd1",
+        "price": 20
+      },
+      "quantity": 3,
+      "discount": 0,
+      "totalPrice": 60
+    }
+  ],
+  "discount": 0,
+  "totalPrice": 0
 }
 
 Check quote:

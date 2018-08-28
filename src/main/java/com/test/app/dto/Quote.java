@@ -3,6 +3,7 @@ package com.test.app.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.data.redis.core.RedisHash;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -11,7 +12,7 @@ public class Quote {
 
     private String name;
 
-    private List<QuoteLine> quoteLines;
+    private List<QuoteLine> quoteLines = new ArrayList<QuoteLine>();
 
     private Double discount = 0d;
 
@@ -42,6 +43,7 @@ public class Quote {
     }
 
     public Double getTotalPrice() {
+        totalPrice = 0d;
         if(quoteLines != null && quoteLines.size() > 0) {
             for(QuoteLine quoteLine : quoteLines) {
                 totalPrice += quoteLine.getTotalPrice();

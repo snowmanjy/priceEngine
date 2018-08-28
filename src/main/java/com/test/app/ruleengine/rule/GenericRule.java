@@ -10,7 +10,7 @@ public class GenericRule extends AbstractRule {
     }
 
     public void run() {
-        if(condition.check()) {
+        if(condition.match()) {
             // TODO add action to the action queue
         }
     }

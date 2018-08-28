@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash("quoteline")
 public class QuoteLine {
 
+    private int lineNumber;
+
     private Product product;
 
     private int quantity = 0;
@@ -39,7 +41,16 @@ public class QuoteLine {
         this.discount = discount;
     }
 
+    public int getLineNumber() {
+        return lineNumber;
+    }
+
+    public void setLineNumber(int lineNumber) {
+        this.lineNumber = lineNumber;
+    }
+
     public Double getTotalPrice() {
+        totalPrice = 0d;
         if(product != null && quantity != 0) {
             totalPrice = (product.getPrice() * quantity) * (1 - discount);
         }

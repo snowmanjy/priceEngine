@@ -16,16 +16,33 @@
 
 package com.test.app.kafka;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.app.action.QuoteAction;
+import com.test.app.action.QuoteActionFactory;
+import com.test.app.dao.QuoteDao;
+import com.test.app.dto.Quote;
+import com.test.app.web.model.UpdateQuoteModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 @Component
 class ActionConsumer {
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private QuoteActionFactory quoteActionFactory;
+
+    @Autowired
+    private QuoteDao quoteDao;
 
 	private static Logger logger = LoggerFactory.getLogger(ActionConsumer.class);
 
@@ -33,8 +50,23 @@ class ActionConsumer {
 	public void processMessage(String message,
 							   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
 							   @Header(KafkaHeaders.RECEIVED_TOPIC) List<String> topics,
-							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
-		logger.info("EventConsumer triggered");
-		System.out.printf("%s-%d[%d] \"%s\"\n", topics.get(0), partitions.get(0), offsets.get(0), message);
+							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) throws IOException {
+		logger.info("ActionConsumer triggered");
+
+        UpdateQuoteModel updateQuoteModel = objectMapper.readValue(message, UpdateQuoteModel.class);
+
+        Quote quote = quoteDao.getQuote(updateQuoteModel.getQuoteName());
+
+        if(quote == null) {
+            logger.info("Quote not found: " + updateQuoteModel.getQuoteName());
+        }
+
+        QuoteAction quoteAction =quoteActionFactory.getQuoteAction(quote, updateQuoteModel);
+
+        logger.info("QuoteAction: " + quoteAction.toString());
+
+        quoteAction.execute();
+
+        quoteDao.createOrUpdateQuote(quoteAction.getQuote());
 	}
 }
