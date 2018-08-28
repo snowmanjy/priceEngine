@@ -9,7 +9,7 @@ public class QuoteLine {
 
     private Product product;
 
-    private int number = 0;
+    private int quantity = 0;
 
     private Double discount = 0d;
 
@@ -23,12 +23,12 @@ public class QuoteLine {
         this.product = product;
     }
 
-    public int getNumber() {
-        return number;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setNumber(int number) {
-        this.number = number;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public Double getDiscount() {
@@ -40,8 +40,8 @@ public class QuoteLine {
     }
 
     public Double getTotalPrice() {
-        if(product != null && number != 0) {
-            totalPrice = (product.getPrice() * number) * (1 - discount);
+        if(product != null && quantity != 0) {
+            totalPrice = (product.getPrice() * quantity) * (1 - discount);
         }
         return totalPrice;
     }
@@ -50,7 +50,7 @@ public class QuoteLine {
     public String toString() {
         return "QuoteLine{" +
                 "product=" + product +
-                ", number=" + number +
+                ", quantity=" + quantity +
                 ", discount=" + discount +
                 ", totalPrice=" + getTotalPrice() +
                 '}';

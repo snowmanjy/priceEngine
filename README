@@ -16,7 +16,7 @@ post
       "price" : 20.00
     },
     "discount" : 0.00,
-    "number" : 3
+    "quantity" : 3
   }]
 }
 
