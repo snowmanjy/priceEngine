@@ -2,12 +2,12 @@ package com.test.app.action;
 
 import com.test.app.dto.Quote;
 
-public class ChangeDiscountAction extends QuoteAction{
+public class ChangeDiscountActionHandler extends QuoteActionHandler {
 
     private Double newDiscount;
 
-    public ChangeDiscountAction(Quote quote, ActionType actionType) {
-        super(quote, actionType);
+    public ChangeDiscountActionHandler(Quote quote) {
+        super(quote);
     }
 
 
@@ -15,7 +15,7 @@ public class ChangeDiscountAction extends QuoteAction{
         this.newDiscount = discount;
     }
 
-    public void execute() {
+    public void handle() {
         quote.setDiscount(newDiscount);
     }
 }

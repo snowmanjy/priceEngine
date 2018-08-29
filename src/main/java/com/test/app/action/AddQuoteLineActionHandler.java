@@ -5,12 +5,12 @@ import com.test.app.dto.QuoteLine;
 
 import java.util.ArrayList;
 
-public class AddQuoteLineAction extends QuoteAction{
+public class AddQuoteLineActionHandler extends QuoteActionHandler {
 
     private QuoteLine quoteLine;
 
-    public AddQuoteLineAction(Quote quote, ActionType actionType) {
-        super(quote, actionType);
+    public AddQuoteLineActionHandler(Quote quote) {
+        super(quote);
     }
 
 
@@ -18,7 +18,7 @@ public class AddQuoteLineAction extends QuoteAction{
         this.quoteLine = quoteLine;
     }
 
-    public void execute() {
+    public void handle() {
         if(quote.getQuoteLines() == null) {
             quote.setQuoteLines(new ArrayList<QuoteLine>());
         }

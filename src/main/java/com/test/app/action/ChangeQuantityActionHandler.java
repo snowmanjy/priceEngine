@@ -3,16 +3,15 @@ package com.test.app.action;
 import com.test.app.dto.Quote;
 import com.test.app.dto.QuoteLine;
 
-public class ChangeQuantityAction extends QuoteAction{
+public class ChangeQuantityActionHandler extends QuoteActionHandler {
 
     private int lineNumber;
 
     private int newQuantity;
 
-    public ChangeQuantityAction(Quote quote, ActionType actionType) {
-        super(quote, actionType);
+    public ChangeQuantityActionHandler(Quote quote) {
+        super(quote);
     }
-
 
     public void setQuantity(int quantity) {
         this.newQuantity = newQuantity;
@@ -22,7 +21,7 @@ public class ChangeQuantityAction extends QuoteAction{
         this.lineNumber = lineNumber;
     }
 
-    public void execute() {
+    public void handle() {
         if(quote.getQuoteLines() != null && quote.getQuoteLines().size() > 0) {
             for(QuoteLine quoteLine : quote.getQuoteLines()) {
                 if(lineNumber == quoteLine.getLineNumber()) {

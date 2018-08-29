@@ -7,18 +7,18 @@ import org.springframework.stereotype.Component;
 @Component
 public class QuoteActionFactory {
 
-    public QuoteAction getQuoteAction(Quote quote, QuoteActionModel quoteActionModel) {
+    public QuoteActionHandler getQuoteAction(Quote quote, QuoteActionModel quoteActionModel) {
         switch (quoteActionModel.getActionType()) {
             case ADDQUOTELINE:
-                AddQuoteLineAction addQuoteLineAction = new AddQuoteLineAction(quote, quoteActionModel.getActionType());
+                AddQuoteLineActionHandler addQuoteLineAction = new AddQuoteLineActionHandler(quote);
                 addQuoteLineAction.setQuoteLine(quoteActionModel.getQuoteLine());
                 return addQuoteLineAction;
             case CHANGEDISCOUNT:
-                ChangeDiscountAction changeDiscountAction = new ChangeDiscountAction(quote, quoteActionModel.getActionType());
+                ChangeDiscountActionHandler changeDiscountAction = new ChangeDiscountActionHandler(quote);
                 changeDiscountAction.setDiscount(quoteActionModel.getDiscount());
                 return changeDiscountAction;
             case CHANGEQUATITY:
-                ChangeQuantityAction changeQuantityAction = new ChangeQuantityAction(quote, quoteActionModel.getActionType());
+                ChangeQuantityActionHandler changeQuantityAction = new ChangeQuantityActionHandler(quote);
                 changeQuantityAction.setLineNumber(quoteActionModel.getQuoteLine().getLineNumber());
                 changeQuantityAction.setQuantity(quoteActionModel.getQuoteLine().getQuantity());
                 return changeQuantityAction;

@@ -17,7 +17,7 @@
 package com.test.app.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.app.action.QuoteAction;
+import com.test.app.action.QuoteActionHandler;
 import com.test.app.action.QuoteActionFactory;
 import com.test.app.dao.QuoteDao;
 import com.test.app.dto.Quote;
@@ -61,12 +61,12 @@ class ActionConsumer {
             logger.info("Quote not found: " + quoteActionModel.getQuoteName());
         }
 
-        QuoteAction quoteAction =quoteActionFactory.getQuoteAction(quote, quoteActionModel);
+        QuoteActionHandler quoteActionHandler =quoteActionFactory.getQuoteAction(quote, quoteActionModel);
 
-        logger.info("QuoteAction: " + quoteAction.toString());
+        logger.info("QuoteActionHandler: " + quoteActionHandler.toString());
 
-        quoteAction.execute();
+        quoteActionHandler.handle();
 
-        quoteDao.createOrUpdateQuote(quoteAction.getQuote());
+        quoteDao.createOrUpdateQuote(quoteActionHandler.getQuote());
 	}
 }
