@@ -1,11 +1,11 @@
-package com.test.app.web.model;
+package com.test.app.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.test.app.action.ActionType;
 import com.test.app.dto.QuoteLine;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UpdateQuoteModel {
+public class QuoteActionModel {
 
     private String quoteName;
 

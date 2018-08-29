@@ -2,7 +2,7 @@ package com.test.app.web;
 
 import com.test.app.dto.Quote;
 import com.test.app.service.QuoteService;
-import com.test.app.web.model.UpdateQuoteModel;
+import com.test.app.dto.QuoteActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -48,13 +48,13 @@ public class QuoteController {
     }
 
     @PatchMapping("/{quotename}")
-    public ResponseEntity<?> updateQuote(@PathVariable("quotename") String quoteName, @RequestBody UpdateQuoteModel updateQuoteModel) throws QuoteNotFoundException {
+    public ResponseEntity<?> updateQuote(@PathVariable("quotename") String quoteName, @RequestBody QuoteActionModel quoteActionModel) throws QuoteNotFoundException {
         if(quoteName == null) {
             throw new QuoteNotFoundException("");
         }
-        updateQuoteModel.setQuoteName(quoteName);
+        quoteActionModel.setQuoteName(quoteName);
 
-        quoteService.updateQuote(updateQuoteModel);
+        quoteService.updateQuote(quoteActionModel);
 
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

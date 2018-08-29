@@ -2,7 +2,7 @@ package com.test.app.kafka;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.test.app.web.model.UpdateQuoteModel;
+import com.test.app.dto.QuoteActionModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -23,8 +23,8 @@ public class ActionProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void send(UpdateQuoteModel updateQuoteModel) throws JsonProcessingException {
-        this.kafkaTemplate.send(topic, objectMapper.writeValueAsString(updateQuoteModel));
+    public void send(QuoteActionModel quoteActionModel) throws JsonProcessingException {
+        this.kafkaTemplate.send(topic, objectMapper.writeValueAsString(quoteActionModel));
     }
 
 }

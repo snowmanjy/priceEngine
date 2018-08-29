@@ -21,7 +21,7 @@ import com.test.app.action.QuoteAction;
 import com.test.app.action.QuoteActionFactory;
 import com.test.app.dao.QuoteDao;
 import com.test.app.dto.Quote;
-import com.test.app.web.model.UpdateQuoteModel;
+import com.test.app.dto.QuoteActionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,15 +53,15 @@ class ActionConsumer {
 							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) throws IOException {
 		logger.info("ActionConsumer triggered");
 
-        UpdateQuoteModel updateQuoteModel = objectMapper.readValue(message, UpdateQuoteModel.class);
+        QuoteActionModel quoteActionModel = objectMapper.readValue(message, QuoteActionModel.class);
 
-        Quote quote = quoteDao.getQuote(updateQuoteModel.getQuoteName());
+        Quote quote = quoteDao.getQuote(quoteActionModel.getQuoteName());
 
         if(quote == null) {
-            logger.info("Quote not found: " + updateQuoteModel.getQuoteName());
+            logger.info("Quote not found: " + quoteActionModel.getQuoteName());
         }
 
-        QuoteAction quoteAction =quoteActionFactory.getQuoteAction(quote, updateQuoteModel);
+        QuoteAction quoteAction =quoteActionFactory.getQuoteAction(quote, quoteActionModel);
 
         logger.info("QuoteAction: " + quoteAction.toString());
 

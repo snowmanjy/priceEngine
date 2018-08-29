@@ -1,12 +1,11 @@
 package com.test.app.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.test.app.action.QuoteActionFactory;
 import com.test.app.dao.QuoteDao;
 import com.test.app.dto.Quote;
 import com.test.app.kafka.ActionProducer;
 import com.test.app.web.QuoteNotFoundException;
-import com.test.app.web.model.UpdateQuoteModel;
+import com.test.app.dto.QuoteActionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,16 +39,16 @@ public class QuoteService {
 
     }
 
-    public void updateQuote(UpdateQuoteModel updateQuoteModel) throws QuoteNotFoundException {
+    public void updateQuote(QuoteActionModel quoteActionModel) throws QuoteNotFoundException {
 
-        Quote quote = quoteDao.getQuote(updateQuoteModel.getQuoteName());
+        Quote quote = quoteDao.getQuote(quoteActionModel.getQuoteName());
 
         if(quote == null) {
-            throw new QuoteNotFoundException(updateQuoteModel.getQuoteName());
+            throw new QuoteNotFoundException(quoteActionModel.getQuoteName());
         }
 
         try {
-            actionProducer.send(updateQuoteModel);
+            actionProducer.send(quoteActionModel);
         } catch (JsonProcessingException e) {
             logger.error("Kafka pubisher error:" + e.getMessage());
         }
