@@ -16,25 +16,45 @@
 
 package com.test.app.kafka;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.app.dto.Quote;
+import org.kie.api.runtime.KieSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.List;
 
 @Component
 class EventConsumer {
 	private static Logger logger = LoggerFactory.getLogger(EventConsumer.class);
 
+
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @Autowired
+    private KieSession kieSession;
+
+    @Autowired
+    private ActionProducer actionProducer;
+
 	@KafkaListener(topics = "${cloudkarafka.topic.event}")
 	public void processMessage(String message,
 							   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
 							   @Header(KafkaHeaders.RECEIVED_TOPIC) List<String> topics,
-							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
+							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) throws IOException {
         logger.info("EventConsumer triggered");
+        Quote quote = objectMapper.readValue(message, Quote.class);
+
+        kieSession.setGlobal("actionProducer", actionProducer);
+        kieSession.insert(quote);
+        int ruleNumber = kieSession.fireAllRules();
 		System.out.printf("%s-%d[%d] \"%s\"\n", topics.get(0), partitions.get(0), offsets.get(0), message);
 	}
 }

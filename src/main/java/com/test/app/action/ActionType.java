@@ -1,7 +1,10 @@
 package com.test.app.action;
 
 public enum ActionType {
+    CREATEQUOTE,
     ADDQUOTELINE,
     CHANGEDISCOUNT,
-    CHANGEQUATITY
+    CHANGEQUATITY,
+    CHANGESHIPPINGFEE,
+    CHANGECOUPON
 }

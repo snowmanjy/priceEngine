@@ -44,6 +44,9 @@ class ActionConsumer {
     @Autowired
     private QuoteDao quoteDao;
 
+    @Autowired
+    private EventProducer EventProducer;
+
 	private static Logger logger = LoggerFactory.getLogger(ActionConsumer.class);
 
 	@KafkaListener(topics = "${cloudkarafka.topic.action}")
@@ -68,5 +71,7 @@ class ActionConsumer {
         quoteActionHandler.handle();
 
         quoteDao.createOrUpdateQuote(quoteActionHandler.getQuote());
+
+        EventProducer.send(quote);
 	}
 }

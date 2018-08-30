@@ -1,11 +1,18 @@
 package com.test.app.kafka;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.test.app.dto.Quote;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EventProducer {
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private final KafkaTemplate<String, String> kafkaTemplate;
 
@@ -16,9 +23,8 @@ public class EventProducer {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void send(SampleMessage message) {
-        this.kafkaTemplate.send(topic, message.getMessage());
-        System.out.println("Sent sample message [" + message + "] to " + topic);
+    public void send(Quote quote) throws JsonProcessingException {
+        this.kafkaTemplate.send(topic, objectMapper.writeValueAsString(quote));
     }
 
 }

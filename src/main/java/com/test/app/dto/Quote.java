@@ -14,7 +14,11 @@ public class Quote {
 
     private List<QuoteLine> quoteLines = new ArrayList<QuoteLine>();
 
+    private Double coupon = 0d;
+
     private Double discount = 0d;
+
+    private Double shippingFee = 0d;
 
     private Double totalPrice = 0d;
 
@@ -34,12 +38,28 @@ public class Quote {
         this.quoteLines = quoteLines;
     }
 
+    public Double getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Double coupon) {
+        this.coupon = coupon;
+    }
+
     public Double getDiscount() {
         return discount;
     }
 
     public void setDiscount(Double discount) {
         this.discount = discount;
+    }
+
+    public Double getShippingFee() {
+        return shippingFee;
+    }
+
+    public void setShippingFee(Double shippingFee) {
+        this.shippingFee = shippingFee;
     }
 
     public Double getTotalPrice() {
@@ -49,7 +69,12 @@ public class Quote {
                 totalPrice += quoteLine.getTotalPrice();
             }
         }
-        totalPrice = totalPrice * (1 - discount);
+
+        totalPrice -= coupon;
+
+        totalPrice *= 1 - discount;
+
+        totalPrice += shippingFee;
 
         return totalPrice;
     }
@@ -59,8 +84,10 @@ public class Quote {
         return "Quote{" +
                 "name='" + name + '\'' +
                 ", quoteLines=" + quoteLines +
+                ", coupon=" + coupon +
                 ", discount=" + discount +
-                ", totalPrice=" + getTotalPrice() +
+                ", shippingFee=" + shippingFee +
+                ", totalPrice=" + totalPrice +
                 '}';
     }
 }

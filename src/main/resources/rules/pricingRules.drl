@@ -1,0 +1,31 @@
+package rules
+
+import com.test.app.dto.Quote
+import com.test.app.dto.QuoteActionModel
+import com.test.app.kafka.ActionProducer
+
+global ActionProducer actionProducer;
+dialect  "java"
+
+rule "Add Shipping fee"
+	when
+		quote : Quote(totalPrice < 75, shippingFee == 0)
+	then
+		QuoteActionModel quoteActionModel = new QuoteActionModel();
+		quoteActionModel.setQuoteName(quote.getName());
+		quoteActionModel.setActionType(com.test.app.action.ActionType.CHANGESHIPPINGFEE);
+        quoteActionModel.setShippingFee(7d);
+
+        actionProducer.send(quoteActionModel);
+	end
+rule "Free Shipping"
+	when
+		quote: Quote(totalPrice >= 75 && shippingFee > 0)
+	then
+        QuoteActionModel quoteActionModel = new QuoteActionModel();
+		quoteActionModel.setQuoteName(quote.getName());
+		quoteActionModel.setActionType(com.test.app.action.ActionType.CHANGESHIPPINGFEE);
+		quoteActionModel.setShippingFee(0d);
+
+		actionProducer.send(quoteActionModel);
+	end

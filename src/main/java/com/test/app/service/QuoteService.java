@@ -1,6 +1,7 @@
 package com.test.app.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.test.app.action.ActionType;
 import com.test.app.dao.QuoteDao;
 import com.test.app.dto.Quote;
 import com.test.app.kafka.ActionProducer;
@@ -22,7 +23,7 @@ public class QuoteService {
     @Autowired
     private ActionProducer actionProducer;
 
-	public Quote getQuote(String quoteName) throws QuoteNotFoundException {
+    public Quote getQuote(String quoteName) throws QuoteNotFoundException {
 
 		Quote quote = quoteDao.getQuote(quoteName);
 
@@ -37,15 +38,17 @@ public class QuoteService {
 
         quoteDao.createOrUpdateQuote(quote);
 
+        QuoteActionModel quoteActionModel = new QuoteActionModel();
+        quoteActionModel.setQuoteName(quote.getName());
+        quoteActionModel.setActionType(ActionType.CREATEQUOTE);
+        try {
+            actionProducer.send(quoteActionModel);
+        } catch (JsonProcessingException e) {
+            logger.error("Kafka pubisher error:" + e.getMessage());
+        }
     }
 
-    public void updateQuote(QuoteActionModel quoteActionModel) throws QuoteNotFoundException {
-
-        Quote quote = quoteDao.getQuote(quoteActionModel.getQuoteName());
-
-        if(quote == null) {
-            throw new QuoteNotFoundException(quoteActionModel.getQuoteName());
-        }
+    public void updateQuote(QuoteActionModel quoteActionModel) {
 
         try {
             actionProducer.send(quoteActionModel);

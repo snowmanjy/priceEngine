@@ -11,7 +11,11 @@ public class QuoteActionModel {
 
     private QuoteLine quoteLine = new QuoteLine();
 
-    private Double discount = 0d;
+    private Double discount;
+
+    private Double shippingFee;
+
+    private Double coupon;
 
     private ActionType actionType;
 
@@ -45,5 +49,21 @@ public class QuoteActionModel {
 
     public void setActionType(ActionType actionType) {
         this.actionType = actionType;
+    }
+
+    public Double getShippingFee() {
+        return shippingFee;
+    }
+
+    public void setShippingFee(Double shippingFee) {
+        this.shippingFee = shippingFee;
+    }
+
+    public Double getCoupon() {
+        return coupon;
+    }
+
+    public void setCoupon(Double coupon) {
+        this.coupon = coupon;
     }
 }
