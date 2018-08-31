@@ -15,13 +15,7 @@ public class QuoteDao {
     private BaseRepository<Quote> quoteRepository;
 
     public Quote getQuote(String quoteName) {
-        Quote quote = quoteRepository.find(quoteName);
-
-        if(quote != null) {
-            logger.info("Quote in redis: " + quote.toString());
-        }
-
-        return quote;
+        return quoteRepository.find(quoteName);
     }
 
     public void createOrUpdateQuote(Quote quote) {

@@ -65,8 +65,6 @@ class ActionConsumer {
 
         QuoteActionHandler quoteActionHandler =quoteActionFactory.getQuoteAction(quote, quoteActionModel);
 
-        logger.info("QuoteActionHandler: " + quoteActionHandler.toString());
-
         quoteActionHandler.handle();
 
         quoteDao.createOrUpdateQuote(quoteActionHandler.getQuote());
