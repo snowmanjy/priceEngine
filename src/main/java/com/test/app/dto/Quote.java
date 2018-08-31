@@ -22,6 +22,8 @@ public class Quote {
 
     private Double totalPrice = 0d;
 
+    private Double targetPrice = 0d;
+
     public String getName() {
         return name;
     }
@@ -60,6 +62,14 @@ public class Quote {
 
     public void setShippingFee(Double shippingFee) {
         this.shippingFee = shippingFee;
+    }
+
+    public Double getTargetPrice() {
+        return targetPrice;
+    }
+
+    public void setTargetPrice(Double targetPrice) {
+        this.targetPrice = targetPrice;
     }
 
     public Double getTotalPrice() {
