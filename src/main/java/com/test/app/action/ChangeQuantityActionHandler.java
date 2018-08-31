@@ -14,7 +14,7 @@ public class ChangeQuantityActionHandler extends QuoteActionHandler {
     }
 
     public void setQuantity(int quantity) {
-        this.newQuantity = newQuantity;
+        this.newQuantity = quantity;
     }
 
     public void setLineNumber(int lineNumber) {

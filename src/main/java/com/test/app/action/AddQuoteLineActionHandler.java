@@ -20,7 +20,7 @@ public class AddQuoteLineActionHandler extends QuoteActionHandler {
 
     public void handle() {
         if(quote.getQuoteLines() == null) {
-            quote.setQuoteLines(new ArrayList<QuoteLine>());
+            quote.setQuoteLines(new ArrayList<>());
         }
 
         quote.getQuoteLines().add(quoteLine);

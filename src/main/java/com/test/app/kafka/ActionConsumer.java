@@ -54,7 +54,6 @@ class ActionConsumer {
 							   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
 							   @Header(KafkaHeaders.RECEIVED_TOPIC) List<String> topics,
 							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) throws IOException {
-		logger.info("ActionConsumer triggered");
 
         QuoteActionModel quoteActionModel = objectMapper.readValue(message, QuoteActionModel.class);
 

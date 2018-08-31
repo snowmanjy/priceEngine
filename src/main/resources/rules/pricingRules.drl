@@ -3,6 +3,7 @@ package rules
 import com.test.app.dto.Quote
 import com.test.app.dto.QuoteActionModel
 import com.test.app.kafka.ActionProducer
+import com.test.app.dto.QuoteLine
 
 global ActionProducer actionProducer;
 dialect  "java"
@@ -17,10 +18,12 @@ rule "Add Shipping fee"
         quoteActionModel.setShippingFee(7d);
 
         actionProducer.send(quoteActionModel);
+
+        System.out.println("rule: add shipping fee fired");
 	end
 rule "Free Shipping"
 	when
-		quote: Quote(totalPrice >= 75 && shippingFee > 0)
+		quote: Quote(totalPrice >= 75, shippingFee > 0)
 	then
         QuoteActionModel quoteActionModel = new QuoteActionModel();
 		quoteActionModel.setQuoteName(quote.getName());
@@ -28,4 +31,27 @@ rule "Free Shipping"
 		quoteActionModel.setShippingFee(0d);
 
 		actionProducer.send(quoteActionModel);
+
+		System.out.println("rule: free shipping fired");
+
+	end
+
+rule "Change quantity to target total price"
+    when
+		quote: Quote(totalPrice > 20)
+	then
+	    QuoteLine quoteLine = quote.getQuoteLines().get(0);
+	    QuoteLine updateQuoteLineModel = new QuoteLine();
+	    updateQuoteLineModel.setLineNumber(quoteLine.getLineNumber());
+	    updateQuoteLineModel.setQuantity(quoteLine.getQuantity() - 1);
+
+        QuoteActionModel quoteActionModel = new QuoteActionModel();
+        quoteActionModel.setQuoteName(quote.getName());
+		quoteActionModel.setQuoteLine(updateQuoteLineModel);
+		quoteActionModel.setActionType(com.test.app.action.ActionType.CHANGEQUATITY);
+
+		actionProducer.send(quoteActionModel);
+
+		System.out.println("rule: target total price testing fired");
+
 	end

@@ -49,7 +49,7 @@ class EventConsumer {
 							   @Header(KafkaHeaders.RECEIVED_PARTITION_ID) List<Integer> partitions,
 							   @Header(KafkaHeaders.RECEIVED_TOPIC) List<String> topics,
 							   @Header(KafkaHeaders.OFFSET) List<Long> offsets) throws IOException {
-        logger.info("EventConsumer triggered");
+
         Quote quote = objectMapper.readValue(message, Quote.class);
 
         kieSession.setGlobal("actionProducer", actionProducer);

@@ -1,6 +1,6 @@
 
 Run:
-This is a maven project, to run it, change directory to project root folder and run command:
+This is a maven project, to run it, run this command under the project root folder:
 mvn package && java -jar target/priceEngine-1.0-SNAPSHOT.jar
 
 Creat quote:
@@ -28,3 +28,11 @@ post
 Check quote:
 type in browser:
 http://localhost:8080/quotes/testQuote
+
+change discount:
+{
+  "actionType" : "CHANGEDISCOUNT",
+  "discount" : 0.10,
+  "quoteLine" : {
+  }
+}
