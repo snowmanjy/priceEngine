@@ -18,7 +18,8 @@ public class ChangeCouponActionHandler extends QuoteActionHandler {
         this.coupon = coupon;
     }
 
-    public void handle() {
+    public Quote handle() {
         quote.setCoupon(coupon);
+        return quote;
     }
 }

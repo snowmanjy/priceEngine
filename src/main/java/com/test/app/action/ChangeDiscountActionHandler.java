@@ -15,7 +15,9 @@ public class ChangeDiscountActionHandler extends QuoteActionHandler {
         this.newDiscount = discount;
     }
 
-    public void handle() {
+    public Quote handle() {
+
         quote.setDiscount(newDiscount);
+        return quote;
     }
 }

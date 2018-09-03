@@ -65,10 +65,13 @@ class ActionConsumer {
 
         QuoteActionHandler quoteActionHandler =quoteActionFactory.getQuoteAction(quote, quoteActionModel);
 
-        quoteActionHandler.handle();
+        Quote modifiedQuote = quoteActionHandler.handle();
 
-        quoteDao.createOrUpdateQuote(quoteActionHandler.getQuote());
+        if(modifiedQuote != null) {
+            quoteDao.createOrUpdateQuote(modifiedQuote);
 
-        EventProducer.send(quote);
+        }
+
+        EventProducer.send(modifiedQuote);
 	}
 }

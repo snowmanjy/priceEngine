@@ -38,7 +38,7 @@ rule "Free Shipping"
 
 rule "Change quantity to target total price"
     when
-		quote: Quote(0 < targetPrice, targetPrice < totalPrice)
+		quote: Quote(targetPrice > 0, targetPrice < totalPrice)
 	then
 	    QuoteLine quoteLine = quote.getQuoteLines().get(0);
 	    QuoteLine updateQuoteLineModel = new QuoteLine();

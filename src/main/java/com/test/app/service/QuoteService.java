@@ -4,13 +4,15 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.test.app.action.ActionType;
 import com.test.app.dao.QuoteDao;
 import com.test.app.dto.Quote;
+import com.test.app.dto.QuoteActionModel;
 import com.test.app.kafka.ActionProducer;
 import com.test.app.web.QuoteNotFoundException;
-import com.test.app.dto.QuoteActionModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class QuoteService {
@@ -33,6 +35,17 @@ public class QuoteService {
 
         return quote;
 	}
+
+    public List<Quote> getAllQuotes(String quoteName) throws QuoteNotFoundException {
+
+        List<Quote> quoteList = quoteDao.getAllQuotes(quoteName);
+
+        if(quoteList == null) {
+            throw new QuoteNotFoundException(quoteName);
+        }
+
+        return quoteList;
+    }
 
     public void saveQuote(Quote quote) {
 

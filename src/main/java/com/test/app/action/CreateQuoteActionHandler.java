@@ -8,5 +8,7 @@ public class CreateQuoteActionHandler extends QuoteActionHandler {
         super(quote);
     }
 
-    public void handle() {}
+    public Quote handle() {
+        return quote;
+    }
 }

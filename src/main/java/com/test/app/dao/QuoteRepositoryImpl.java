@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
+import java.util.List;
 
 @Repository
 public class QuoteRepositoryImpl implements BaseRepository<Quote> {
@@ -31,6 +32,14 @@ public class QuoteRepositoryImpl implements BaseRepository<Quote> {
 
     public Quote find(String symbol){
         return listOperations.index(symbol, 0);
+    }
+
+    public List<Quote> getAll(String symbol){
+        Long size = listOperations.size(symbol);
+        if(size == 0) {
+            return null;
+        }
+        return listOperations.range(symbol, 0, size - 1);
     }
 
     public boolean hasKey(String symbol) {

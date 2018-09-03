@@ -18,11 +18,13 @@ public class AddQuoteLineActionHandler extends QuoteActionHandler {
         this.quoteLine = quoteLine;
     }
 
-    public void handle() {
+    public Quote handle() {
         if(quote.getQuoteLines() == null) {
             quote.setQuoteLines(new ArrayList<>());
         }
 
         quote.getQuoteLines().add(quoteLine);
+
+        return quote;
     }
 }

@@ -18,7 +18,9 @@ public class ChangeShippingFeeActionHandler extends QuoteActionHandler {
         this.newShippingFee = newShippingFee;
     }
 
-    public void handle() {
+    public Quote handle() {
+
         quote.setShippingFee(newShippingFee);
+        return quote;
     }
 }

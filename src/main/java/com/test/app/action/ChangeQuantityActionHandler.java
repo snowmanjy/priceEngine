@@ -21,7 +21,7 @@ public class ChangeQuantityActionHandler extends QuoteActionHandler {
         this.lineNumber = lineNumber;
     }
 
-    public void handle() {
+    public Quote handle() {
         if(quote.getQuoteLines() != null && quote.getQuoteLines().size() > 0) {
             for(QuoteLine quoteLine : quote.getQuoteLines()) {
                 if(lineNumber == quoteLine.getLineNumber()) {
@@ -29,6 +29,6 @@ public class ChangeQuantityActionHandler extends QuoteActionHandler {
                 }
             }
         }
-
+        return quote;
     }
 }

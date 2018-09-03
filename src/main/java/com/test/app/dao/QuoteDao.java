@@ -6,6 +6,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public class QuoteDao {
 
@@ -19,12 +21,10 @@ public class QuoteDao {
     }
 
     public void createOrUpdateQuote(Quote quote) {
-        if(!quoteRepository.hasKey(quote.getName())) {
-            quoteRepository.add(quote.getName(), quote);
-        } else {
-            //TODO update Quote instead of delete and add
-            quoteRepository.delete(quote.getName());
-            quoteRepository.add(quote.getName(), quote);
-        }
+        quoteRepository.add(quote.getName(), quote);
+    }
+
+    public List<Quote> getAllQuotes(String quoteName) {
+        return quoteRepository.getAll(quoteName);
     }
 }
