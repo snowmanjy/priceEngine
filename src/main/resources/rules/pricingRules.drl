@@ -23,7 +23,7 @@ rule "Add Shipping fee"
 	end
 rule "Free Shipping"
 	when
-		quote: Quote(totalPrice >= 75, shippingFee > 0)
+		quote: Quote(totalPrice >= 82, shippingFee > 0)
 	then
         QuoteActionModel quoteActionModel = new QuoteActionModel();
 		quoteActionModel.setQuoteName(quote.getName());
