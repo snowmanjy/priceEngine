@@ -10,7 +10,7 @@ dialect  "java"
 
 rule "Add Shipping fee"
 	when
-		quote : Quote(totalPrice < 75, shippingFee == 0)
+		quote : Quote(totalPrice - shippingFee < 75, shippingFee == 0)
 	then
 		QuoteActionModel quoteActionModel = new QuoteActionModel();
 		quoteActionModel.setQuoteName(quote.getName());
@@ -23,7 +23,7 @@ rule "Add Shipping fee"
 	end
 rule "Free Shipping"
 	when
-		quote: Quote(totalPrice >= 75, shippingFee > 0)
+		quote: Quote(totalPrice - shippingFee >= 75, shippingFee > 0)
 	then
         QuoteActionModel quoteActionModel = new QuoteActionModel();
 		quoteActionModel.setQuoteName(quote.getName());
